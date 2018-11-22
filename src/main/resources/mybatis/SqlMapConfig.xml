@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <!-- 打印查询语句以及查询结果 -->
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+        <setting name="safeRowBoundsEnabled" value="true"/>
+        <setting name="cacheEnabled" value="false"/>
+        <setting name="useGeneratedKeys" value="true"/>
+    </settings>
+
+    <!--<typeAliases>-->
+    <!---->
+    <!--</typeAliases>-->
+
+
+    <plugins>
+        <!-- 分页插件 4.X之后版本-->
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <property name="properties" value="dialect=mysql"/>
+        </plugin>
+        <!-- 分页插件 4.X之前版本-->
+        <!--<plugin interceptor="com.github.pagehelper.PageHelper">-->
+            <!--<property name="dialect" value="mysql"/>-->
+        <!--</plugin>-->
+    </plugins>
+
+    <!--<typeHandlers>-->
+    <!---->
+    <!--</typeHandlers>-->
+</configuration>
