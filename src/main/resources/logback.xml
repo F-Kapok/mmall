@@ -5,7 +5,8 @@
         <withJansi>false</withJansi>
         <encoder>
             <!--格式化输出：%d表示日期，%thread表示线程名，%highlight高亮，%cyan深绿，%green绿色，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger{15})  %green(%msg) %n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger{15}) %green(%msg) %n
+            </pattern>
         </encoder>
     </appender>
 
@@ -45,13 +46,13 @@
     </appender>
 
     <logger name="com.fans" level="INFO" additivity="false">
-        <appender-ref ref="mmall" />
-        <appender-ref ref="console"/>
+        <appender-ref ref="mmall"/>
+        <appender-ref ref="STDOUT"/>
     </logger>
 
     <!-- TRACE < DEBUG < INFO < WARN < ERROR -->
     <root level="INFO">
-        <appender-ref ref="STDOUT" />
+        <appender-ref ref="STDOUT"/>
         <appender-ref ref="error"/>
     </root>
 

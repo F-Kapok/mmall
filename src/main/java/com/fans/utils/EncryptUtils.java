@@ -7,6 +7,7 @@ import sun.misc.BASE64Encoder;
 
 import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
+import java.io.UnsupportedEncodingException;
 import java.security.SecureRandom;
 
 /**
@@ -27,6 +28,23 @@ public class EncryptUtils {
      **/
     public static String MD5Encrypt(String content) {
         String md5EncryptStr = DigestUtils.md5DigestAsHex(content.getBytes());
+        return md5EncryptStr;
+    }
+
+    /**
+     * @Description: TODO spring md5加密工具 增加编码格式
+     * @Param: [content]
+     * @return: java.lang.String
+     * @Author: fan
+     * @Date: 2018/09/10 15:35
+     **/
+    public static String MD5Encrypt(String content, String charset) {
+        String md5EncryptStr = null;
+        try {
+            md5EncryptStr = DigestUtils.md5DigestAsHex(content.getBytes(charset));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         return md5EncryptStr;
     }
 

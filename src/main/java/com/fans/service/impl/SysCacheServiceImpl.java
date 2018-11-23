@@ -25,7 +25,7 @@ public class SysCacheServiceImpl implements SysCacheService {
 
     @Override
     public void saveCache(CacheKeyConstants prefix, String value, Integer timeOut) {
-        saveCache(prefix, value, timeOut, null);
+        saveCache(prefix, value, timeOut, "");
     }
 
     @Override

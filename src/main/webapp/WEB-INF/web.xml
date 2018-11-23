@@ -29,7 +29,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>springMvc</servlet-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>*.do</url-pattern>
     </servlet-mapping>
     <!-- Encoding 配置Post请求乱码 -->
     <filter>
@@ -63,7 +63,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>DruidStatServlet</servlet-name>
-        <url-pattern>/sys/druid/*</url-pattern>
+        <url-pattern>/druid/*</url-pattern>
     </servlet-mapping>
     <filter>
         <filter-name>DruidWebStatFilter</filter-name>

@@ -23,11 +23,11 @@ public class SpringExceptionResolver implements HandlerExceptionResolver {
         ModelAndView modelAndView;
         String defaultMsg = "System Error";
         if (e instanceof ParamException) {
-            JsonData result = JsonData.fail(e.getMessage());
+            ServerResponse result = ServerResponse.failureMsg(e.getMessage());
             modelAndView = new ModelAndView("jsonView", result.toMap());
         } else {
             log.error("unknown json exception, url:" + url, e);
-            JsonData result = JsonData.fail(defaultMsg);
+            ServerResponse result = ServerResponse.failureMsg(defaultMsg);
             modelAndView = new ModelAndView("jsonView", result.toMap());
         }
         return modelAndView;

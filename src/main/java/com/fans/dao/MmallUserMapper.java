@@ -2,7 +2,9 @@ package com.fans.dao;
 
 import com.fans.pojo.MmallUser;
 import com.fans.pojo.MmallUserExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface MmallUserMapper {
@@ -27,4 +29,10 @@ public interface MmallUserMapper {
     int updateByPrimaryKeySelective(MmallUser record);
 
     int updateByPrimaryKey(MmallUser record);
+
+    int checkUserByUsername(String username);
+
+    int checkUserByEmail(String email);
+
+    MmallUser login(@Param("username") String username, @Param("password") String password);
 }
