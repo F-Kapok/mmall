@@ -15,5 +15,5 @@
         <property name="rollbackOnCommitFailure" value="true"/>
     </bean>
     <!-- 开启事务控制的注解支持 -->
-    <tx:annotation-driven/>
+    <tx:annotation-driven proxy-target-class="true"/>
 </beans>
