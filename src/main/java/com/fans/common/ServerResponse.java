@@ -1,9 +1,9 @@
 package com.fans.common;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.common.collect.Maps;
 import lombok.Getter;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import java.io.Serializable;
 import java.util.Map;
@@ -19,7 +19,7 @@ import java.util.Map;
 
 @Getter
 //保证序列化json的时候,如果是null的对象,key也会消失
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class ServerResponse<T> implements Serializable {
 
     private Integer status;

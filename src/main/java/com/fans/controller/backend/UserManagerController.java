@@ -29,7 +29,7 @@ public class UserManagerController {
         ServerResponse<MmallUser> result = iUserService.login(username, password);
         if (result.isSuccess()) {
             MmallUser user = result.getData();
-            if (user.getRole() == CommonConstants.Role.ROLE_ADMIN) {
+            if (user.getRole().equals(CommonConstants.Role.ROLE_ADMIN)) {
                 //说明登录的是管理员
                 session.setAttribute(CommonConstants.CURRENT_USER, user);
                 return result;

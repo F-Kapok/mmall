@@ -14,7 +14,7 @@ public interface IUserService {
 
     ServerResponse<MmallUser> login(String username, String password);
 
-    ServerResponse register(MmallUser user);
+    ServerResponse<String> register(MmallUser user);
 
     ServerResponse<String> checkValid(String str, String type);
 
@@ -29,4 +29,6 @@ public interface IUserService {
     ServerResponse<MmallUser> updateInformation(MmallUser user);
 
     ServerResponse<MmallUser> getInformation(Integer userId);
+
+    ServerResponse checkAdminRole(MmallUser user);
 }
