@@ -1,5 +1,7 @@
 package com.fans.common;
 
+import com.fans.pojo.MmallUser;
+
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -11,12 +13,12 @@ import javax.servlet.http.HttpServletRequest;
  **/
 public class RequestHolder {
 
-    private static final ThreadLocal<Object> objectHolder = new ThreadLocal<>();
+    private static final ThreadLocal<MmallUser> objectHolder = new ThreadLocal<>();
 
     private static final ThreadLocal<HttpServletRequest> requestHolder = new ThreadLocal<>();
 
-    public static void add(Object object) {
-        objectHolder.set(object);
+    public static void add(MmallUser user) {
+        objectHolder.set(user);
     }
 
     public static void add(HttpServletRequest request) {

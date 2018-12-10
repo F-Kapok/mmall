@@ -28,8 +28,9 @@ public class UserController {
     @RequestMapping(value = "/login.do", method = RequestMethod.POST)
     public ServerResponse<MmallUser> login(String username, String password, HttpSession session) {
         ServerResponse<MmallUser> response = iUserService.login(username, password);
-        if (response.isSuccess())
+        if (response.isSuccess()) {
             session.setAttribute(CommonConstants.CURRENT_USER, response.getData());
+        }
         return response;
     }
 
@@ -54,8 +55,9 @@ public class UserController {
     @RequestMapping(value = "/get_user_info.do", method = RequestMethod.POST)
     public ServerResponse<MmallUser> getUserInfo(HttpSession session) {
         MmallUser user = (MmallUser) session.getAttribute(CommonConstants.CURRENT_USER);
-        if (user == null)
+        if (user == null) {
             return ServerResponse.failureMsg("The user is not logger in and cannot get the current user information");
+        }
         return ServerResponse.success(user);
     }
 
@@ -80,8 +82,9 @@ public class UserController {
     @RequestMapping(value = "/reset_password.do", method = RequestMethod.POST)
     private ServerResponse<String> resetPassword(HttpSession session, String passwordOld, String passwordNew) {
         MmallUser user = (MmallUser) session.getAttribute(CommonConstants.CURRENT_USER);
-        if (user == null)
+        if (user == null) {
             return ServerResponse.failureMsg("The user is not logger in and cannot get current user information");
+        }
         ServerResponse<String> result = iUserService.resetPassword(passwordOld, passwordNew, user.getId());
         return result;
     }
@@ -89,8 +92,9 @@ public class UserController {
     @RequestMapping(value = "/update_information.do", method = RequestMethod.POST)
     public ServerResponse<MmallUser> updateInformation(HttpSession session, MmallUser user) {
         MmallUser currentUser = (MmallUser) session.getAttribute(CommonConstants.CURRENT_USER);
-        if (currentUser == null)
+        if (currentUser == null) {
             return ServerResponse.failureMsg("The user is not logger in and cannot get current user information");
+        }
         user.setId(currentUser.getId());
         user.setUsername(currentUser.getUsername());
         ServerResponse<MmallUser> result = iUserService.updateInformation(user);
@@ -104,8 +108,9 @@ public class UserController {
     @RequestMapping(value = "/get_information.do", method = RequestMethod.POST)
     public ServerResponse<MmallUser> getInformation(HttpSession session) {
         MmallUser user = (MmallUser) session.getAttribute(CommonConstants.CURRENT_USER);
-        if (user == null)
+        if (user == null) {
             return ServerResponse.failureCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "The user is not logger in, You have to force login, statis = 10 ");
+        }
         ServerResponse<MmallUser> result = iUserService.getInformation(user.getId());
         return result;
     }

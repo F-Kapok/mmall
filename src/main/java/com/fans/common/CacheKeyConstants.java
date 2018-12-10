@@ -8,7 +8,10 @@ package com.fans.common;
  * @Version 1.0
  **/
 public enum CacheKeyConstants {
+    /**
+     * 缓存key
+     */
     KAPOK,
     SYSTEM_ACL,
-    USER_ACL;
+    USER_ACL
 }

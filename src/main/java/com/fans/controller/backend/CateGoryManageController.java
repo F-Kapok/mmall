@@ -1,18 +1,14 @@
 package com.fans.controller.backend;
 
-import com.fans.common.CommonConstants;
-import com.fans.common.ResponseCode;
+import com.fans.common.MmallCommon;
 import com.fans.common.ServerResponse;
-import com.fans.pojo.MmallUser;
 import com.fans.service.interfaces.ICateGoryService;
-import com.fans.service.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpSession;
 
 /**
  * @ClassName CateGoryManageController
@@ -25,67 +21,46 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/manage/category")
 public class CateGoryManageController {
     @Autowired
-    private IUserService iUserService;
-    @Autowired
     private ICateGoryService iCateGoryService;
 
     @RequestMapping(value = "/add_category.do", method = RequestMethod.POST)
-    public ServerResponse addCateGory(HttpSession session, String cateGoryName, @RequestParam(value = "parentId", defaultValue = "0") int parentId) {
-        MmallUser user = (MmallUser) session.getAttribute(CommonConstants.CURRENT_USER);
-        if (user == null) {
-            return ServerResponse.failureCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录");
-        } else {
-            if (iUserService.checkAdminRole(user).isSuccess()) {
-                //处理分类逻辑
-                return iCateGoryService.addCateGory(cateGoryName, parentId);
-            } else {
-                return ServerResponse.failureMsg("无权限操作，需要管理员权限");
-            }
+    public ServerResponse addCateGory(String cateGoryName, @RequestParam(value = "parentId", defaultValue = "0") int parentId) {
+        ServerResponse result = MmallCommon.checkUser();
+        if (result.isSuccess()) {
+            //处理分类逻辑
+            return iCateGoryService.addCateGory(cateGoryName, parentId);
         }
+        return result;
     }
 
     @RequestMapping(value = "/set_category_name.do", method = RequestMethod.POST)
-    public ServerResponse setCateGoryName(HttpSession session, Integer categoryId, String categoryName) {
-        MmallUser user = (MmallUser) session.getAttribute(CommonConstants.CURRENT_USER);
-        if (user == null) {
-            return ServerResponse.failureCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录");
-        } else {
-            if (iUserService.checkAdminRole(user).isSuccess()) {
-                //处理分类逻辑
-                return iCateGoryService.setCateGoryName(categoryId, categoryName);
-            } else {
-                return ServerResponse.failureMsg("无权限操作，需要管理员权限");
-            }
+    public ServerResponse setCateGoryName(Integer categoryId, String categoryName) {
+        ServerResponse result = MmallCommon.checkUser();
+        if (result.isSuccess()) {
+            //处理分类逻辑
+            return iCateGoryService.setCateGoryName(categoryId, categoryName);
         }
+        return result;
     }
 
     @RequestMapping(value = "/get_category.do", method = RequestMethod.POST)
-    public ServerResponse getChildParallelCategory(HttpSession session, @RequestParam(value = "categoryId", defaultValue = "0") Integer categoryId) {
-        MmallUser user = (MmallUser) session.getAttribute(CommonConstants.CURRENT_USER);
-        if (user == null) {
-            return ServerResponse.failureCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录");
-        } else {
-            if (iUserService.checkAdminRole(user).isSuccess()) {
-                //处理分类逻辑
-                return iCateGoryService.getChildParallelCateGory(categoryId);
-            } else {
-                return ServerResponse.failureMsg("无权限操作，需要管理员权限");
-            }
+    public ServerResponse getChildParallelCategory(@RequestParam(value = "categoryId", defaultValue = "0") Integer categoryId) {
+        ServerResponse result = MmallCommon.checkUser();
+        if (result.isSuccess()) {
+            //处理分类逻辑
+            return iCateGoryService.getChildParallelCateGory(categoryId);
         }
+        return result;
     }
 
     @RequestMapping(value = "/get_deep_category.do", method = RequestMethod.POST)
-    public ServerResponse getCareGoryAndChildById(HttpSession session, @RequestParam(value = "categoryId", defaultValue = "0") Integer categoryId) {
-        MmallUser user = (MmallUser) session.getAttribute(CommonConstants.CURRENT_USER);
-        if (user == null) {
-            return ServerResponse.failureCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录");
-        } else {
-            if (iUserService.checkAdminRole(user).isSuccess()) {
-                //处理分类逻辑
-                return iCateGoryService.getCateGoryAndChildById(categoryId);
-            } else {
-                return ServerResponse.failureMsg("无权限操作，需要管理员权限");
-            }
+    public ServerResponse getCareGoryAndChildById(@RequestParam(value = "categoryId", defaultValue = "0") Integer categoryId) {
+        ServerResponse result = MmallCommon.checkUser();
+        if (result.isSuccess()) {
+            //处理分类逻辑
+            return iCateGoryService.getCateGoryAndChildById(categoryId);
         }
+        return result;
     }
+
 }
