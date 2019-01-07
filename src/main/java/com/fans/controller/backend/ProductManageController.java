@@ -7,6 +7,7 @@ import com.fans.service.interfaces.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -50,4 +51,25 @@ public class ProductManageController {
         return result;
     }
 
+    @RequestMapping(value = "/list.do", method = RequestMethod.GET)
+    public ServerResponse getProductList(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+                                         @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
+        ServerResponse result = MmallCommon.checkUser();
+        if (result.isSuccess()) {
+            return iProductService.getProductList(pageNum, pageSize);
+        }
+        return result;
+    }
+
+    @RequestMapping(value = "/search.do", method = RequestMethod.GET)
+    public ServerResponse searchProduct(@RequestParam(value = "productName") String productName,
+                                        @RequestParam(value = "productId") Integer productId,
+                                        @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+                                        @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
+        ServerResponse result = MmallCommon.checkUser();
+        if (result.isSuccess()) {
+            return iProductService.getProductByNameOrId(productName, productId, pageNum, pageSize);
+        }
+        return result;
+    }
 }

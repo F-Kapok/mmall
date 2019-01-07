@@ -3,7 +3,9 @@ package com.fans.dao;
 import com.fans.pojo.MmallProduct;
 import com.fans.pojo.MmallProductExample;
 import com.fans.pojo.MmallProductWithBLOBs;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface MmallProductMapper {
@@ -34,4 +36,6 @@ public interface MmallProductMapper {
     int updateByPrimaryKeyWithBLOBs(MmallProductWithBLOBs record);
 
     int updateByPrimaryKey(MmallProduct record);
+
+    List<MmallProduct> searchByNameOrId(@Param("productName") String productName, @Param("productId") Integer productId);
 }

@@ -18,4 +18,8 @@ public interface IProductService {
     ServerResponse<String> setSaleStatus(Integer productId, Integer status);
 
     ServerResponse<ProductDetailVo> proDetail(Integer productId);
+
+    ServerResponse getProductList(Integer pageNum, Integer pageSize);
+
+    ServerResponse getProductByNameOrId(String productName, Integer productId, Integer pageNum, Integer pageSize);
 }

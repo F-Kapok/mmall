@@ -5,15 +5,23 @@ import com.fans.common.ServerResponse;
 import com.fans.dao.MmallCategoryMapper;
 import com.fans.dao.MmallProductMapper;
 import com.fans.pojo.MmallCategory;
+import com.fans.pojo.MmallProduct;
 import com.fans.pojo.MmallProductWithBLOBs;
 import com.fans.service.interfaces.IProductService;
 import com.fans.utils.DateUtils;
 import com.fans.utils.PropertiesUtil;
 import com.fans.vo.ProductDetailVo;
+import com.fans.vo.ProductListVo;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @ClassName ProductServiceImpl
@@ -88,6 +96,30 @@ public class ProductServiceImpl implements IProductService {
         return ServerResponse.success(detailVo);
     }
 
+    @Override
+    public ServerResponse getProductList(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<MmallProduct> productList = productMapper.selectByExample(null);
+        List<ProductListVo> productListVoList = productList.stream()
+                .map(ProductListVo::adapt)
+                .collect(Collectors.toList());
+        PageInfo pageInfo = PageInfo.of(productListVoList);
+        return ServerResponse.success(pageInfo);
+    }
+
+    @Override
+    public ServerResponse getProductByNameOrId(String productName, Integer productId, Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        if (StringUtils.isNotBlank(productName)) {
+            productName = "%" + productName + "%";
+        }
+        List<MmallProduct> productList = productMapper.searchByNameOrId(productName, productId);
+        List<ProductListVo> result = productList.stream()
+                .map(ProductListVo::adapt)
+                .collect(Collectors.toList());
+        PageInfo pageInfo = PageInfo.of(result);
+        return ServerResponse.success(pageInfo);
+    }
 
     private ProductDetailVo adapterProduct(MmallProductWithBLOBs product) {
         ProductDetailVo detailVo = new ProductDetailVo();
