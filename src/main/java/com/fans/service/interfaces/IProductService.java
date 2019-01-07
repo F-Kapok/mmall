@@ -6,7 +6,7 @@ import com.fans.vo.ProductDetailVo;
 
 /**
  * @InterfaceName IProductService
- * @Description:  产品服务层接口
+ * @Description: 产品服务层接口
  * @Author fan
  * @Date 2018-12-17 14:46
  * @Version 1.0
@@ -22,4 +22,6 @@ public interface IProductService {
     ServerResponse getProductList(Integer pageNum, Integer pageSize);
 
     ServerResponse getProductByNameOrId(String productName, Integer productId, Integer pageNum, Integer pageSize);
+
+    ServerResponse getProductByKeyWordCategory(Integer pageNum, Integer pageSize, String orderBy, Integer categoryId, String keyword);
 }

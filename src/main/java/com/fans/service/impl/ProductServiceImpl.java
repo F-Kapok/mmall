@@ -1,5 +1,6 @@
 package com.fans.service.impl;
 
+import com.fans.common.CommonConstants;
 import com.fans.common.ResponseCode;
 import com.fans.common.ServerResponse;
 import com.fans.dao.MmallCategoryMapper;
@@ -7,6 +8,7 @@ import com.fans.dao.MmallProductMapper;
 import com.fans.pojo.MmallCategory;
 import com.fans.pojo.MmallProduct;
 import com.fans.pojo.MmallProductWithBLOBs;
+import com.fans.service.interfaces.ICateGoryService;
 import com.fans.service.interfaces.IProductService;
 import com.fans.utils.DateUtils;
 import com.fans.utils.PropertiesUtil;
@@ -20,12 +22,15 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
  * @ClassName ProductServiceImpl
- * @Description:  产品服务实现层
+ * @Description: 产品服务实现层
  * @Author fan
  * @Date 2018-12-17 14:47
  * @Version 1.0
@@ -36,6 +41,8 @@ public class ProductServiceImpl implements IProductService {
     private MmallProductMapper productMapper;
     @Autowired
     private MmallCategoryMapper categoryMapper;
+    @Autowired
+    private ICateGoryService iCateGoryService;
 
     @Override
     public ServerResponse saveOrUpdateProduct(MmallProductWithBLOBs product) {
@@ -118,6 +125,57 @@ public class ProductServiceImpl implements IProductService {
                 .map(ProductListVo::adapt)
                 .collect(Collectors.toList());
         PageInfo pageInfo = PageInfo.of(result);
+        return ServerResponse.success(pageInfo);
+    }
+
+    @Override
+    public ServerResponse getProductByKeyWordCategory(Integer pageNum, Integer pageSize, String orderBy, Integer categoryId, String keyword) {
+        if (StringUtils.isBlank(keyword) && categoryId == null) {
+            return ServerResponse.failureCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        }
+        List<Integer> cateGoryIdList = Lists.newArrayList();
+        if (categoryId != null) {
+            MmallCategory category = categoryMapper.selectByPrimaryKey(categoryId);
+            if (category == null && StringUtils.isBlank(keyword)) {
+                //返回空结果集
+                PageHelper.startPage(pageNum, pageSize);
+                List<ProductListVo> productListVoList = Lists.newArrayList();
+                PageInfo pageInfo = PageInfo.of(productListVoList);
+                return ServerResponse.success(pageInfo);
+            }
+            cateGoryIdList = iCateGoryService.getCateGoryAndChildById(categoryId).getData();
+        }
+        if (StringUtils.isNotBlank(keyword)) {
+            keyword = "%" + keyword + "%";
+        }
+        PageHelper.startPage(pageNum, pageSize);
+        //排序处理
+
+        //1. 利用 pageHelper排列
+        if (StringUtils.isNotBlank(orderBy)) {
+            if (CommonConstants.ProductListOrderBy.PRICE_ASC_DESC.contains(orderBy)) {
+                String[] orderByArray = orderBy.split("_");
+                PageHelper.orderBy(orderByArray[0] + " " + orderByArray[1]);
+            }
+        }
+        List<MmallProduct> productList = productMapper.searchByKeyWordOrCateGoryIds(
+                StringUtils.isBlank(keyword) ? null : keyword,
+                cateGoryIdList.size() == 0 ? null : cateGoryIdList
+        );
+        //2. 利用集合排序排列
+//        if (orderBy.indexOf(CommonConstants.OrderBy.ASC.getCode()) > 0) {
+//            //升序
+//            productList.sort(Comparator.comparing(MmallProduct::getPrice));
+//        } else {
+//            //降序
+//            productList.sort((o1, o2) -> o2.getPrice().compareTo(o1.getPrice()));
+//        }
+        List<ProductListVo> productListVoList = Lists.newArrayList();
+        for (MmallProduct product : productList) {
+            ProductListVo productListVo = ProductListVo.adapt(product);
+            productListVoList.add(productListVo);
+        }
+        PageInfo pageInfo = PageInfo.of(productListVoList);
         return ServerResponse.success(pageInfo);
     }
 

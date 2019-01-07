@@ -38,4 +38,6 @@ public interface MmallProductMapper {
     int updateByPrimaryKey(MmallProduct record);
 
     List<MmallProduct> searchByNameOrId(@Param("productName") String productName, @Param("productId") Integer productId);
+
+    List<MmallProduct> searchByKeyWordOrCateGoryIds(@Param("keyword") String keyword, @Param("cateGoryIdList") List<Integer> cateGoryIdList);
 }
