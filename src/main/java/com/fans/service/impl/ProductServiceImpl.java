@@ -97,7 +97,10 @@ public class ProductServiceImpl implements IProductService {
         }
         MmallProductWithBLOBs product = productMapper.selectByPrimaryKey(productId);
         if (product == null) {
-            return ServerResponse.failureMsg("商品已下架或者不存在！！！");
+            return ServerResponse.failureMsg("商品不存在！！！");
+        }
+        if (!StringUtils.equals(product.getStatus().toString(), String.valueOf(CommonConstants.ProductStatusEnum.ON_SALE.getCode()))) {
+            return ServerResponse.failureMsg("商品已下架！！！");
         }
         ProductDetailVo detailVo = adapterProduct(product);
         return ServerResponse.success(detailVo);
