@@ -8,7 +8,7 @@ import redis.clients.jedis.ShardedJedisPool;
 
 /**
  * @ClassName RedisPool
- * @Description: TODO redis 使用类
+ * @Description:  redis 使用类
  * @Author fan
  * @Date 2018-11-16 16:27
  * @Version 1.0

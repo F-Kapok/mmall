@@ -6,7 +6,7 @@ import com.fans.vo.ProductDetailVo;
 
 /**
  * @InterfaceName IProductService
- * @Description: TODO 产品服务层接口
+ * @Description:  产品服务层接口
  * @Author fan
  * @Date 2018-12-17 14:46
  * @Version 1.0

@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 /**
  * @ClassName ProductDetailVo
- * @Description: TODO 商品详情vo
+ * @Description:   商品详情vo
  * @Author fan
  * @Date 2018-12-17 16:30
  * @Version 1.0

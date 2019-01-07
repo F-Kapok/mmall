@@ -2,7 +2,7 @@ package com.fans.common;
 
 /**
  * @ClassName CommonConstants
- * @Description: TODO 共用Key枚举
+ * @Description:  共用Key枚举
  * @Author fan
  * @Date 2018-11-23 11:23
  * @Version 1.0

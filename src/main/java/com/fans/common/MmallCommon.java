@@ -6,7 +6,7 @@ import com.fans.utils.ApplicationContextHelper;
 
 /**
  * @ClassName MmallCommon
- * @Description: TODO 通用方法
+ * @Description:  通用方法
  * @Author fan
  * @Date 2018-12-10 17:38
  * @Version 1.0

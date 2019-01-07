@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @ClassName SpringExceptionResolver
- * @Description: TODO 自定义异常处理
+ * @Description:  自定义异常处理
  * @Author fan
  * @Date 2018-11-20 09:40
  * @Version 1.0

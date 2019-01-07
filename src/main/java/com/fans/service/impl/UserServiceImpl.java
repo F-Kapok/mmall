@@ -17,7 +17,7 @@ import java.util.UUID;
 
 /**
  * @ClassName UserServiceImpl
- * @Description: TODO 门户用户服务实现
+ * @Description:  门户用户服务实现
  * @Author fan
  * @Date 2018-11-23 11:58
  * @Version 1.0

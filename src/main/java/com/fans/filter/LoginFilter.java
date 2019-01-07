@@ -16,7 +16,7 @@ import java.util.Set;
 
 /**
  * @ClassName LoginFilter
- * @Description: TODO 登录拦截器
+ * @Description:  登录拦截器
  * @Author fan
  * @Date 2018-12-10 16:29
  * @Version 1.0
@@ -26,7 +26,7 @@ public class LoginFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) {
-        //TODO 初始化白名单的url
+        // 初始化白名单的url
         String exclusionUrls = filterConfig.getInitParameter("ignoreUrl");
         List<String> exclusionList = Splitter.on(",").omitEmptyStrings().splitToList(exclusionUrls);
         exclusionUrlSet = Sets.newConcurrentHashSet(exclusionList);

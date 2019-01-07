@@ -5,7 +5,7 @@ import com.fans.pojo.MmallUser;
 
 /**
  * @InterfaceName IUserService
- * @Description: TODO 门户用户服务接口
+ * @Description:  门户用户服务接口
  * @Author fan
  * @Date 2018-11-23 11:50
  * @Version 1.0

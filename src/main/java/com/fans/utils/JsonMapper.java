@@ -10,7 +10,7 @@ import org.codehaus.jackson.type.TypeReference;
 
 /**
  * @ClassName JsonMapper
- * @Description: TODO 对象与字符串转换工具
+ * @Description:   对象与字符串转换工具
  * @Author fan
  * @Date 2018-11-06 12:41
  * @Version 1.0
@@ -20,7 +20,7 @@ public class JsonMapper {
     private static ObjectMapper objectMapper = new ObjectMapper();
 
     static {
-        //TODO 初始化 initialize
+        //  初始化 initialize
         objectMapper.disable(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES);
         objectMapper.configure(SerializationConfig.Feature.FAIL_ON_EMPTY_BEANS, false);
         objectMapper.setFilters(new SimpleFilterProvider().setFailOnUnknownId(false));

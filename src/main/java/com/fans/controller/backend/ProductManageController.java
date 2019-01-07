@@ -9,10 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @ClassName ProductManageController
- * @Description: TODO 产品管理后台控制层
+ * @Description:  产品管理后台控制层
  * @Author fan
  * @Date 2018-12-17 14:40
  * @Version 1.0
@@ -71,5 +74,11 @@ public class ProductManageController {
             return iProductService.getProductByNameOrId(productName, productId, pageNum, pageSize);
         }
         return result;
+    }
+
+    @RequestMapping(value = "/upload.do", method = RequestMethod.POST)
+    public ServerResponse upload(MultipartFile file, HttpServletRequest request) {
+
+        return ServerResponse.success();
     }
 }
