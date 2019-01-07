@@ -7,10 +7,15 @@
 </head>
 <body>
 <h1>Hello World</h1>
-<a href="${pageContext.request.contextPath}/j_spring_security_logout">退出登陆</a>
-<br>
-<a href="/adminPage">跳转管理人页面</a>
-<br>
-<a href="/test">跳测试页面</a>
+<h3>springMvc 文件上传</h3>
+<form name="form1" action="/manage/product/upload.do" method="post" enctype="multipart/form-data">
+    <input type="file" name="upload_file">
+    <input type="submit" value="upload"/>
+</form>
+<h3>富文本 文件上传</h3>
+<form name="form2" action="/manage/product/richtext_img_upload.do" method="post" enctype="multipart/form-data">
+    <input type="file" name="upload_file">
+    <input type="submit" value="upload"/>
+</form>
 </body>
 </html>

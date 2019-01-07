@@ -3,7 +3,11 @@ package com.fans.controller.backend;
 import com.fans.common.MmallCommon;
 import com.fans.common.ServerResponse;
 import com.fans.pojo.MmallProductWithBLOBs;
+import com.fans.service.interfaces.IFileService;
 import com.fans.service.interfaces.IProductService;
+import com.fans.utils.PropertiesUtil;
+import com.google.common.collect.Maps;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,10 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Map;
 
 /**
  * @ClassName ProductManageController
- * @Description:  产品管理后台控制层
+ * @Description: 产品管理后台控制层
  * @Author fan
  * @Date 2018-12-17 14:40
  * @Version 1.0
@@ -25,6 +32,8 @@ import javax.servlet.http.HttpServletRequest;
 public class ProductManageController {
     @Autowired
     private IProductService iProductService;
+    @Autowired
+    private IFileService iFileService;
 
     @RequestMapping(value = "/save.do", method = RequestMethod.POST)
     public ServerResponse productSave(MmallProductWithBLOBs product) {
@@ -77,8 +86,41 @@ public class ProductManageController {
     }
 
     @RequestMapping(value = "/upload.do", method = RequestMethod.POST)
-    public ServerResponse upload(MultipartFile file, HttpServletRequest request) {
+    public ServerResponse upload(@RequestParam(value = "upload_file", required = false) MultipartFile file,
+                                 HttpServletRequest request) throws IOException {
+        ServerResponse response = MmallCommon.checkUser();
+        if (response.isSuccess()) {
+            String path = request.getSession().getServletContext().getRealPath("upload");
+            String remoteFilePath = iFileService.upload(file, path);
+            if (StringUtils.isBlank(remoteFilePath)) {
+                return ServerResponse.failureMsg("上传失败！！！");
+            }
+            Map<String, String> result = Maps.newHashMap();
+            result.put("uri", remoteFilePath.substring(remoteFilePath.lastIndexOf("/") + 1));
+            result.put("url", remoteFilePath);
+            return ServerResponse.success(result);
+        }
+        return response;
+    }
 
-        return ServerResponse.success();
+    @RequestMapping(value = "/richtext_img_upload.do", method = RequestMethod.POST)
+    public Map<String, Object> richTextUpload(@RequestParam(value = "upload_file", required = false) MultipartFile file,
+                                              HttpServletRequest request,
+                                              HttpServletResponse response) throws IOException {
+        Map<String, Object> resultMap = MmallCommon.uploadCheckUser();
+        if (Boolean.valueOf(resultMap.get("success").toString())) {
+            String path = request.getSession().getServletContext().getRealPath("upload");
+            String remoteFilePath = iFileService.upload(file, path);
+            if (StringUtils.isBlank(remoteFilePath)) {
+                resultMap.put("success", false);
+                resultMap.put("msg", "上传失败！！！");
+                return resultMap;
+            }
+            resultMap.put("msg", "上传成功！！！");
+            resultMap.put("file_path", remoteFilePath);
+            response.addHeader("Access-Control-Allow-Headers", "X-File-Name");
+            return resultMap;
+        }
+        return resultMap;
     }
 }
