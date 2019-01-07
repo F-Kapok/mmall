@@ -1,6 +1,5 @@
 package com.fans.utils;
 
-import com.google.common.base.Joiner;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
