@@ -1,16 +1,16 @@
 package com.fans.common;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.common.collect.Maps;
 import lombok.Getter;
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import java.io.Serializable;
 import java.util.Map;
 
 /**
  * @ClassName ServerResponse
- * @Description:  自定义交互数据定义类
+ * @Description: 自定义交互数据定义类
  * @Author fan
  * @Date 2018-11-20 09:44
  * @Version 1.0
@@ -18,8 +18,7 @@ import java.util.Map;
 
 
 @Getter
-//保证序列化json的时候,如果是null的对象,key也会消失
-@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ServerResponse<T> implements Serializable {
 
     private Integer status;
@@ -50,7 +49,6 @@ public class ServerResponse<T> implements Serializable {
 
 
     @JsonIgnore
-    //使之不在json序列化结果当中
     public boolean isSuccess() {
         return this.status.equals(ResponseCode.SUCCESS.getCode());
     }
