@@ -1,7 +1,15 @@
 package com.fans.pojo;
 
+import com.fans.utils.serializer.Date2LongSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import lombok.*;
+
 import java.util.Date;
 
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class Cart {
     /**
      * 购物车表id
@@ -31,11 +39,13 @@ public class Cart {
     /**
      * 创建时间
      */
+    @JsonSerialize(using = Date2LongSerializer.class)
     private Date createTime;
 
     /**
      * 修改时间
      */
+    @JsonSerialize(using = Date2LongSerializer.class)
     private Date updateTime;
 
     public Integer getId() {

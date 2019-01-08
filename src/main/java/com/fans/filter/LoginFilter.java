@@ -48,7 +48,7 @@ public class LoginFilter implements Filter {
             response.getWriter().write("[{\"msg\":\"未登录请进行登录操作\",\"status\":\"1\"}]");
             return;
         }
-        RequestHolder.add(user);
+         RequestHolder.add(user);
         RequestHolder.add(request);
         filterChain.doFilter(servletRequest, servletResponse);
         return;

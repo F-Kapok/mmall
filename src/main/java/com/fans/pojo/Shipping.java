@@ -2,29 +2,65 @@ package com.fans.pojo;
 
 import java.util.Date;
 
-public class MmallShipping {
+public class Shipping {
+    /**
+     * 收货地址id
+     */
     private Integer id;
 
+    /**
+     * 对应mmall_user表id
+     */
     private Integer userId;
 
+    /**
+     * 收货姓名
+     */
     private String receiverName;
 
+    /**
+     * 收货移动电话
+     */
     private String receiverPhone;
 
+    /**
+     * 收货固定电话
+     */
     private String receiverMobile;
 
+    /**
+     * 省份
+     */
     private String receiverProvince;
 
+    /**
+     * 城市
+     */
     private String receiverCity;
 
+    /**
+     * 区/县
+     */
     private String receiverDistrict;
 
+    /**
+     * 详细地址
+     */
     private String receiverAddress;
 
+    /**
+     * 邮编
+     */
     private String receiverZip;
 
+    /**
+     * 创建时间
+     */
     private Date createTime;
 
+    /**
+     * 修改时间
+     */
     private Date updateTime;
 
     public Integer getId() {
