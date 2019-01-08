@@ -1,7 +1,18 @@
 package com.fans.pojo;
 
+import com.fans.utils.serializer.Date2LongSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import java.util.Date;
 
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class Shipping {
     /**
      * 收货地址id
@@ -56,11 +67,13 @@ public class Shipping {
     /**
      * 创建时间
      */
+    @JsonSerialize(using = Date2LongSerializer.class)
     private Date createTime;
 
     /**
      * 修改时间
      */
+    @JsonSerialize(using = Date2LongSerializer.class)
     private Date updateTime;
 
     public Integer getId() {
