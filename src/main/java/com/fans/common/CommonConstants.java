@@ -82,4 +82,69 @@ public class CommonConstants {
         String LIMIT_NUM_FAIL = "LIMIT_NUM_FAIL";
         String LIMIT_NUM_SUCCESS = "LIMIT_NUM_SUCCESS";
     }
+
+    @Getter
+    @AllArgsConstructor
+    public enum OrderStatusEnum {
+        /**
+         * 已取消
+         */
+        CANCELED(0, "已取消"),
+        /**
+         * 未支付
+         */
+        NO_PAY(10, "未支付"),
+        /**
+         * 已付款
+         */
+        PAID(20, "已付款"),
+        /**
+         * 已发货
+         */
+        SHIPPED(40, "已发货"),
+        /**
+         * 订单完成
+         */
+        ORDER_SUCCESS(50, "订单完成"),
+        /**
+         * 订单关闭
+         */
+        ORDER_CLOSE(60, "订单关闭");
+
+        private int code;
+        private String value;
+
+    }
+
+    public interface AlipayCallback {
+        String TRADE_STATUS_WAIT_BUYER_PAY = "WAIT_BUYER_PAY";
+        String TRADE_STATUS_TRADE_SUCCESS = "TRADE_SUCCESS";
+
+        String RESPONSE_SUCCESS = "success";
+        String RESPONSE_FAILED = "failed";
+    }
+
+    @Getter
+    @AllArgsConstructor
+    public enum PayPlatformEnum {
+        /**
+         * 支付宝
+         */
+        ALIPAY(1, "支付宝");
+
+        private int code;
+        private String value;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    public enum PaymentTypeEnum {
+        /**
+         * 在线支付
+         */
+        ONLINE_PAY(1, "在线支付");
+
+        private int code;
+        private String value;
+    }
 }

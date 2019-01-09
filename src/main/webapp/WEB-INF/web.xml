@@ -63,6 +63,7 @@
         <url-pattern>/manage/*</url-pattern>
         <url-pattern>/cart/*</url-pattern>
         <url-pattern>/shipping/*</url-pattern>
+        <url-pattern>/order/*</url-pattern>
     </filter-mapping>
     <!-- druid -->
     <servlet>

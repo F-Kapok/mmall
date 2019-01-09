@@ -1,4 +1,4 @@
-package com.fans.controller;
+package com.fans.controller.portal;
 
 import com.fans.common.MmallCommon;
 import com.fans.common.RequestHolder;

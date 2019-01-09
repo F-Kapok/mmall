@@ -1,22 +1,56 @@
 package com.fans.pojo;
 
+import com.fans.utils.serializer.Date2LongSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import lombok.*;
+
 import java.util.Date;
 
-public class MmallPayInfo {
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+public class PayInfo {
+    /**
+     * 支付信息表id
+     */
     private Integer id;
 
+    /**
+     * 对应mmall_user表id
+     */
     private Integer userId;
 
+    /**
+     * 订单号
+     */
     private Long orderNo;
 
+    /**
+     * 支付平台 1-支付宝 2-微信
+     */
     private Integer payPlatform;
 
+    /**
+     * 支付平台的支付流水号
+     */
     private String platformNumber;
 
+    /**
+     * 支付平台的支付状态
+     */
     private String palatformStatus;
 
+    /**
+     * 创建时间
+     */
+    @JsonSerialize(using = Date2LongSerializer.class)
     private Date createTime;
 
+    /**
+     * 修改时间
+     */
+    @JsonSerialize(using = Date2LongSerializer.class)
     private Date updateTime;
 
     public Integer getId() {

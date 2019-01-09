@@ -3,33 +3,75 @@ package com.fans.pojo;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class MmallOrder {
+public class Order {
+    /**
+     * 订单表id
+     */
     private Integer id;
 
+    /**
+     * 订单号
+     */
     private Long orderNo;
 
+    /**
+     * 对应mmall_user表id
+     */
     private Integer userId;
 
+    /**
+     * 订单地址id
+     */
     private Integer shippingId;
 
+    /**
+     * 实际付款金额 单位（元）保留两位小数 不与商品表价格同步
+     */
     private BigDecimal payment;
 
+    /**
+     * 支付类型 1-在线支付
+     */
     private Integer pamentType;
 
+    /**
+     * 运费，单位元
+     */
     private Integer postage;
 
+    /**
+     * 订单状态 0-已取消 10-未付款 20-已付款 40-已发货 50-交易成功 60-交易关闭
+     */
     private Integer status;
 
+    /**
+     * 支付平台的支付时间
+     */
     private Date paymentTime;
 
+    /**
+     * 发货时间
+     */
     private Date sendTime;
 
+    /**
+     * 交易完成时间
+     */
     private Date endTime;
 
+    /**
+     * 交易关闭时间
+     */
     private Date closeTime;
 
+    /**
+     * 创建时间
+     */
     private Date createTime;
 
+    /**
+     * 修改时间
+     */
     private Date updateTime;
 
     public Integer getId() {
