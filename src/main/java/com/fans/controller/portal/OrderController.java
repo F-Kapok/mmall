@@ -48,7 +48,7 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/alipay_callback.do", method = RequestMethod.POST)
-    public Object alipayCallBack(HttpServletRequest request) {
+    public Object aliPayCallBack(HttpServletRequest request) {
         Map<String, String> params = Maps.newHashMap();
         Map requestMap = request.getParameterMap();
 
@@ -81,8 +81,7 @@ public class OrderController {
         }
         return CommonConstants.AlipayCallback.RESPONSE_FAILED;
     }
-
-
+    
     @RequestMapping(value = "/query_order_pay_status.do", method = RequestMethod.GET)
     public ServerResponse queryOrderPayStatus(Long orderNo) {
         ServerResponse result = MmallCommon.checkUser();
@@ -95,6 +94,12 @@ public class OrderController {
             return ServerResponse.success(false);
         }
         return result;
+    }
+
+    @RequestMapping(value = "/create.do", method = RequestMethod.GET)
+    public ServerResponse createOrder(Integer shippingId) {
+        MmallUser user = (MmallUser) RequestHolder.getCurrentUser();
+        return iOrderService.createOrder(user.getId(), shippingId);
     }
 
 }

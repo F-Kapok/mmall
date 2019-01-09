@@ -114,6 +114,15 @@ public class CommonConstants {
         private int code;
         private String value;
 
+        public static OrderStatusEnum codeOf(int code) {
+            for (OrderStatusEnum orderStatusEnum : values()) {
+                if (orderStatusEnum.getCode() == code) {
+                    return orderStatusEnum;
+                }
+            }
+            throw new RuntimeException("无此订单状态！！！");
+        }
+
     }
 
     public interface AlipayCallback {
@@ -146,5 +155,14 @@ public class CommonConstants {
 
         private int code;
         private String value;
+
+        public static PaymentTypeEnum codeOf(int code) {
+            for (PaymentTypeEnum paymentTypeEnum : values()) {
+                if (paymentTypeEnum.getCode() == code) {
+                    return paymentTypeEnum;
+                }
+            }
+            throw new RuntimeException("无此支付类型！！！");
+        }
     }
 }

@@ -118,6 +118,26 @@
             </if>
         </trim>
     </insert>
+    <insert id="insertBatch" parameterType="map">
+        insert into mmall_order_item (id, user_id, order_no,
+        product_id, product_name, product_image,
+        current_unit_price, quantity, total_price,
+        create_time, update_time)
+        values
+        <foreach collection="orderItemList" index="index" item="it" separator=",">
+            (#{it.id,jdbcType=INTEGER}
+            #{it.userId,jdbcType=INTEGER}
+            #{it.orderNo,jdbcType=BIGINT}
+            #{it.productId,jdbcType=INTEGER}
+            #{it.productName,jdbcType=VARCHAR}
+            #{it.productImage,jdbcType=VARCHAR}
+            #{it.currentUnitPrice,jdbcType=DECIMAL}
+            #{it.quantity,jdbcType=INTEGER}
+            #{it.totalPrice,jdbcType=DECIMAL}
+            #{it.createTime,jdbcType=TIMESTAMP}
+            #{it.updateTime,jdbcType=TIMESTAMP})
+        </foreach>
+    </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.fans.pojo.OrderItem">
         update mmall_order_item
         <set>
