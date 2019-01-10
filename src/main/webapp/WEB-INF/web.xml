@@ -54,7 +54,7 @@
         <filter-class>com.fans.filter.LoginFilter</filter-class>
         <init-param>
             <param-name>ignoreUrl</param-name>
-            <param-value>/user/login.do</param-value>
+            <param-value>/user/*,/manage/user/*</param-value>
         </init-param>
     </filter>
     <filter-mapping>

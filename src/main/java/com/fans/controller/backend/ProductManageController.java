@@ -1,11 +1,9 @@
 package com.fans.controller.backend;
 
-import com.fans.common.MmallCommon;
 import com.fans.common.ServerResponse;
 import com.fans.pojo.MmallProductWithBLOBs;
 import com.fans.service.interfaces.IFileService;
 import com.fans.service.interfaces.IProductService;
-import com.fans.utils.PropertiesUtil;
 import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,40 +35,24 @@ public class ProductManageController {
 
     @RequestMapping(value = "/save.do", method = RequestMethod.POST)
     public ServerResponse productSave(MmallProductWithBLOBs product) {
-        ServerResponse result = MmallCommon.checkUser();
-        if (result.isSuccess()) {
-            return iProductService.saveOrUpdateProduct(product);
-        }
-        return result;
+        return iProductService.saveOrUpdateProduct(product);
     }
 
     @RequestMapping(value = "/set_sale_status.do", method = RequestMethod.POST)
     public ServerResponse setSaleStatus(Integer productId, Integer status) {
-        ServerResponse result = MmallCommon.checkUser();
-        if (result.isSuccess()) {
-            return iProductService.setSaleStatus(productId, status);
-        }
-        return result;
+        return iProductService.setSaleStatus(productId, status);
     }
 
 
     @RequestMapping(value = "/detail.do", method = RequestMethod.POST)
     public ServerResponse proDetail(Integer productId) {
-        ServerResponse result = MmallCommon.checkUser();
-        if (result.isSuccess()) {
-            return iProductService.proDetail(productId);
-        }
-        return result;
+        return iProductService.proDetail(productId);
     }
 
     @RequestMapping(value = "/list.do", method = RequestMethod.GET)
     public ServerResponse getProductList(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                          @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
-        ServerResponse result = MmallCommon.checkUser();
-        if (result.isSuccess()) {
-            return iProductService.getProductList(pageNum, pageSize);
-        }
-        return result;
+        return iProductService.getProductList(pageNum, pageSize);
     }
 
     @RequestMapping(value = "/search.do", method = RequestMethod.GET)
@@ -78,49 +60,39 @@ public class ProductManageController {
                                         @RequestParam(value = "productId") Integer productId,
                                         @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                         @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
-        ServerResponse result = MmallCommon.checkUser();
-        if (result.isSuccess()) {
-            return iProductService.getProductByNameOrId(productName, productId, pageNum, pageSize);
-        }
-        return result;
+        return iProductService.getProductByNameOrId(productName, productId, pageNum, pageSize);
     }
 
     @RequestMapping(value = "/upload.do", method = RequestMethod.POST)
     public ServerResponse upload(@RequestParam(value = "upload_file", required = false) MultipartFile file,
                                  HttpServletRequest request) throws IOException {
-        ServerResponse response = MmallCommon.checkUser();
-        if (response.isSuccess()) {
-            String path = request.getSession().getServletContext().getRealPath("upload");
-            String remoteFilePath = iFileService.upload(file, path);
-            if (StringUtils.isBlank(remoteFilePath)) {
-                return ServerResponse.failureMsg("上传失败！！！");
-            }
-            Map<String, String> result = Maps.newHashMap();
-            result.put("uri", remoteFilePath.substring(remoteFilePath.lastIndexOf("/") + 1));
-            result.put("url", remoteFilePath);
-            return ServerResponse.success(result);
+        String path = request.getSession().getServletContext().getRealPath("upload");
+        String remoteFilePath = iFileService.upload(file, path);
+        if (StringUtils.isBlank(remoteFilePath)) {
+            return ServerResponse.failureMsg("上传失败！！！");
         }
-        return response;
+        Map<String, String> result = Maps.newHashMap();
+        result.put("uri", remoteFilePath.substring(remoteFilePath.lastIndexOf("/") + 1));
+        result.put("url", remoteFilePath);
+        return ServerResponse.success(result);
     }
 
     @RequestMapping(value = "/richtext_img_upload.do", method = RequestMethod.POST)
     public Map<String, Object> richTextUpload(@RequestParam(value = "upload_file", required = false) MultipartFile file,
                                               HttpServletRequest request,
                                               HttpServletResponse response) throws IOException {
-        Map<String, Object> resultMap = MmallCommon.uploadCheckUser();
-        if (Boolean.valueOf(resultMap.get("success").toString())) {
-            String path = request.getSession().getServletContext().getRealPath("upload");
-            String remoteFilePath = iFileService.upload(file, path);
-            if (StringUtils.isBlank(remoteFilePath)) {
-                resultMap.put("success", false);
-                resultMap.put("msg", "上传失败！！！");
-                return resultMap;
-            }
-            resultMap.put("msg", "上传成功！！！");
-            resultMap.put("file_path", remoteFilePath);
-            response.addHeader("Access-Control-Allow-Headers", "X-File-Name");
+        Map<String, Object> resultMap = Maps.newHashMap();
+        String path = request.getSession().getServletContext().getRealPath("upload");
+        String remoteFilePath = iFileService.upload(file, path);
+        if (StringUtils.isBlank(remoteFilePath)) {
+            resultMap.put("success", false);
+            resultMap.put("msg", "上传失败！！！");
             return resultMap;
         }
+        resultMap.put("success", true);
+        resultMap.put("msg", "上传成功！！！");
+        resultMap.put("file_path", remoteFilePath);
+        response.addHeader("Access-Control-Allow-Headers", "X-File-Name");
         return resultMap;
     }
 }

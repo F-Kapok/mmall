@@ -4,7 +4,6 @@ import com.alipay.api.AlipayApiException;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.demo.trade.config.Configs;
 import com.fans.common.CommonConstants;
-import com.fans.common.MmallCommon;
 import com.fans.common.RequestHolder;
 import com.fans.common.ServerResponse;
 import com.fans.pojo.MmallUser;
@@ -39,20 +38,15 @@ public class OrderController {
 
     @RequestMapping(value = "/pay.do", method = RequestMethod.GET)
     public ServerResponse pay(Long orderNo, HttpServletRequest request) {
-        ServerResponse result = MmallCommon.checkUser();
         String path = request.getSession().getServletContext().getRealPath("upload");
-        if (result.isSuccess()) {
-            MmallUser user = (MmallUser) RequestHolder.getCurrentUser();
-            return iOrderService.pay(orderNo, user.getId(), path);
-        }
-        return result;
+        MmallUser user = (MmallUser) RequestHolder.getCurrentUser();
+        return iOrderService.pay(orderNo, user.getId(), path);
     }
 
     @RequestMapping(value = "/alipay_callback.do", method = RequestMethod.POST)
     public Object aliPayCallBack(HttpServletRequest request) {
         Map<String, String> params = Maps.newHashMap();
         Map requestMap = request.getParameterMap();
-
         for (Iterator it = requestMap.keySet().iterator(); it.hasNext(); ) {
             String key = (String) it.next();
             String[] values = (String[]) requestMap.get(key);
@@ -85,16 +79,12 @@ public class OrderController {
 
     @RequestMapping(value = "/query_order_pay_status.do", method = RequestMethod.GET)
     public ServerResponse queryOrderPayStatus(Long orderNo) {
-        ServerResponse result = MmallCommon.checkUser();
+        MmallUser user = (MmallUser) RequestHolder.getCurrentUser();
+        ServerResponse result = iOrderService.queryOrderPayStatus(user.getId(), orderNo);
         if (result.isSuccess()) {
-            MmallUser user = (MmallUser) RequestHolder.getCurrentUser();
-            result = iOrderService.queryOrderPayStatus(user.getId(), orderNo);
-            if (result.isSuccess()) {
-                return ServerResponse.success(true);
-            }
-            return ServerResponse.success(false);
+            return ServerResponse.success(true);
         }
-        return result;
+        return ServerResponse.success(false);
     }
 
     @RequestMapping(value = "/create.do", method = RequestMethod.GET)

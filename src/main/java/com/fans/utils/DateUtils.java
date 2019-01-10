@@ -9,7 +9,7 @@ import java.util.Date;
 
 /**
  * @ClassName DateUtils
- * @Description:   时间格式化工具
+ * @Description: 时间格式化工具
  * @Author fan
  * @Date 2018-09-10 13:45
  * @Version 1.0
@@ -18,12 +18,12 @@ public class DateUtils {
 
     private static final String YYYY_MM_DD = "yyyy-MM-dd";
 
-    private static final String HH_MM_SS = "HH:MM:ss";
+    private static final String HH_MM_SS = "HH:mm:ss";
 
-    private static final String YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:MM:ss";
+    private static final String YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
 
     /**
-     * @Description:   字符串转时间
+     * @Description: 字符串转时间
      * @Param: [dateTimeStr, pattern]
      * @return: java.util.Date
      * @Author: fan
@@ -36,7 +36,7 @@ public class DateUtils {
     }
 
     /**
-     * @Description:   时间转字符串
+     * @Description: 时间转字符串
      * @Param: [date, pattern]
      * @return: java.lang.String
      * @Author: fan
@@ -78,3 +78,4 @@ public class DateUtils {
         return new DateTime().plusDays(day).toString(YYYY_MM_DD);
     }
 }
+

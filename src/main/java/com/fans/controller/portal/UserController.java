@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  * @ClassName UserController
- * @Description:  门户用户控制层
+ * @Description: 门户用户控制层
  * @Author fan
  * @Date 2018-11-23 11:49
  * @Version 1.0
@@ -42,14 +42,12 @@ public class UserController {
 
     @RequestMapping(value = "/register.do", method = RequestMethod.POST)
     public ServerResponse<String> register(MmallUser user) {
-        ServerResponse<String> result = iUserService.register(user);
-        return result;
+        return iUserService.register(user);
     }
 
     @RequestMapping(value = "/check_valid.do", method = RequestMethod.POST)
     public ServerResponse<String> checkValid(String str, String type) {
-        ServerResponse<String> result = iUserService.checkValid(str, type);
-        return result;
+        return iUserService.checkValid(str, type);
     }
 
     @RequestMapping(value = "/get_user_info.do", method = RequestMethod.POST)
