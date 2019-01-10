@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -81,7 +82,7 @@ public class OrderController {
         }
         return CommonConstants.AlipayCallback.RESPONSE_FAILED;
     }
-    
+
     @RequestMapping(value = "/query_order_pay_status.do", method = RequestMethod.GET)
     public ServerResponse queryOrderPayStatus(Long orderNo) {
         ServerResponse result = MmallCommon.checkUser();
@@ -102,4 +103,28 @@ public class OrderController {
         return iOrderService.createOrder(user.getId(), shippingId);
     }
 
+    @RequestMapping(value = "/cancel.do", method = RequestMethod.GET)
+    public ServerResponse cancelOrder(Long orderNo) {
+        MmallUser user = (MmallUser) RequestHolder.getCurrentUser();
+        return iOrderService.cancelOrder(user.getId(), orderNo);
+    }
+
+    @RequestMapping(value = "/get_order_cart_product.do", method = RequestMethod.GET)
+    public ServerResponse getOrderCartProduct() {
+        MmallUser user = (MmallUser) RequestHolder.getCurrentUser();
+        return iOrderService.getOrderCartProduct(user.getId());
+    }
+
+    @RequestMapping(value = "/detail.do", method = RequestMethod.GET)
+    public ServerResponse orderDetail(Long orderNo) {
+        MmallUser user = (MmallUser) RequestHolder.getCurrentUser();
+        return iOrderService.getOrderDetail(user.getId(), orderNo);
+    }
+
+    @RequestMapping(value = "/list.do", method = RequestMethod.GET)
+    public ServerResponse orderList(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+                                    @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
+        MmallUser user = (MmallUser) RequestHolder.getCurrentUser();
+        return iOrderService.getOrderList(user.getId(), pageNum, pageSize);
+    }
 }

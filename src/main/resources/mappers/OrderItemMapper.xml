@@ -24,12 +24,18 @@
         from mmall_order_item
         where id = #{id,jdbcType=INTEGER}
     </select>
-    <select id="getByOrderNoUserId" resultMap="BaseResultMap" parameterType="map">
+    <select id="getByOrderAndUserId" resultMap="BaseResultMap" parameterType="map">
         select
         <include refid="Base_Column_List"/>
         from mmall_order_item
         where user_id = #{userId}
         and order_no = #{orderNo}
+    </select>
+    <select id="getByOrderNoUserId" resultType="com.fans.pojo.OrderItem">
+        select
+        <include refid="Base_Column_List"/>
+        from mmall_order_item
+        where order_no = #{orderNo}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from mmall_order_item
@@ -125,17 +131,17 @@
         create_time, update_time)
         values
         <foreach collection="orderItemList" index="index" item="it" separator=",">
-            (#{it.id,jdbcType=INTEGER}
-            #{it.userId,jdbcType=INTEGER}
-            #{it.orderNo,jdbcType=BIGINT}
-            #{it.productId,jdbcType=INTEGER}
-            #{it.productName,jdbcType=VARCHAR}
-            #{it.productImage,jdbcType=VARCHAR}
-            #{it.currentUnitPrice,jdbcType=DECIMAL}
-            #{it.quantity,jdbcType=INTEGER}
-            #{it.totalPrice,jdbcType=DECIMAL}
-            #{it.createTime,jdbcType=TIMESTAMP}
-            #{it.updateTime,jdbcType=TIMESTAMP})
+            (#{it.id,jdbcType=INTEGER},
+            #{it.userId,jdbcType=INTEGER},
+            #{it.orderNo,jdbcType=BIGINT},
+            #{it.productId,jdbcType=INTEGER},
+            #{it.productName,jdbcType=VARCHAR},
+            #{it.productImage,jdbcType=VARCHAR},
+            #{it.currentUnitPrice,jdbcType=DECIMAL},
+            #{it.quantity,jdbcType=INTEGER},
+            #{it.totalPrice,jdbcType=DECIMAL},
+            now(),
+            now())
         </foreach>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.fans.pojo.OrderItem">
