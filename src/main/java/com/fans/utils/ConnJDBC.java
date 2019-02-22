@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.*;
 
 /**
- * @Description: TODO 数据库连接类 说明:封装了 无参，有参 调用
+ * @Description:  数据库连接类 说明:封装了 无参，有参 调用
  * @Param:
  * @return:
  * @Author: fan
@@ -85,7 +85,7 @@ public class ConnJDBC {
     }
 
     /**
-     * @Description: TODO 增删改
+     * @Description:  增删改
      * @Param: [sql, params]
      * @return: int 受影响的行数
      * @Author: fan
@@ -111,7 +111,7 @@ public class ConnJDBC {
     }
 
     /**
-     * @Description: TODO 查询 结果放入ResultSet中
+     * @Description:  查询 结果放入ResultSet中
      * @Param: [sql, params]
      * @return: java.sql.ResultSet 结果集
      * @Author: fan
@@ -134,7 +134,7 @@ public class ConnJDBC {
     }
 
     /**
-     * @Description: TODO 获取结果集，并将结果放在List中
+     * @Description:  获取结果集，并将结果放在List中
      * @Param: [sql, params]
      * @return: java.util.List<java.util.Map                               <                               java.lang.String                               ,                               java.lang.Object>>
      * @Author: fan
@@ -169,7 +169,7 @@ public class ConnJDBC {
     }
 
     /**
-     * @Description: TODO 获取结果集，并将结果放在Map中
+     * @Description:  获取结果集，并将结果放在Map中
      * @Param: [sql, params]
      * @return: java.util.Map<java.lang.String                               ,                               java.lang.Object> 结果集
      * @Author: fan

@@ -5,7 +5,7 @@ import com.fans.pojo.MmallUser;
 
 /**
  * @InterfaceName IUserService
- * @Description: TODO 门户用户服务接口
+ * @Description:  门户用户服务接口
  * @Author fan
  * @Date 2018-11-23 11:50
  * @Version 1.0
@@ -14,7 +14,7 @@ public interface IUserService {
 
     ServerResponse<MmallUser> login(String username, String password);
 
-    ServerResponse register(MmallUser user);
+    ServerResponse<String> register(MmallUser user);
 
     ServerResponse<String> checkValid(String str, String type);
 
@@ -29,4 +29,6 @@ public interface IUserService {
     ServerResponse<MmallUser> updateInformation(MmallUser user);
 
     ServerResponse<MmallUser> getInformation(Integer userId);
+
+    ServerResponse checkAdminRole(MmallUser user);
 }

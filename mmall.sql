@@ -1,3 +1,8 @@
+DROP DATABASE
+IF EXISTS mmall;
+CREATE DATABASE mmall CHARACTER
+SET utf8 COLLATE utf8_Unicode_ci;
+USE mmall;
 /*
 Navicat MySQL Data Transfer
 

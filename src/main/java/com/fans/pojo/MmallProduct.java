@@ -1,5 +1,8 @@
 package com.fans.pojo;
 
+import com.fans.utils.serializer.Date2LongSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -20,8 +23,9 @@ public class MmallProduct {
 
     private Integer status;
 
+    @JsonSerialize(using = Date2LongSerializer.class)
     private Date createTime;
-
+    @JsonSerialize(using = Date2LongSerializer.class)
     private Date updateTime;
 
     public Integer getId() {

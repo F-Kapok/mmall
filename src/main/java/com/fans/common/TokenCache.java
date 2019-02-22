@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @ClassName TokenCache
- * @Description: TODO token本地缓存
+ * @Description:  token本地缓存
  * @Author fan
  * @Date 2018-11-23 14:14
  * @Version 1.0

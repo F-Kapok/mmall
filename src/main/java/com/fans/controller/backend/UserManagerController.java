@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  * @ClassName UserManagerController
- * @Description: TODO 管理系统用户控制层
+ * @Description:  管理系统用户控制层
  * @Author fan
  * @Date 2018-11-23 16:06
  * @Version 1.0
@@ -29,7 +29,7 @@ public class UserManagerController {
         ServerResponse<MmallUser> result = iUserService.login(username, password);
         if (result.isSuccess()) {
             MmallUser user = result.getData();
-            if (user.getRole() == CommonConstants.Role.ROLE_ADMIN) {
+            if (user.getRole().equals(CommonConstants.Role.ROLE_ADMIN)) {
                 //说明登录的是管理员
                 session.setAttribute(CommonConstants.CURRENT_USER, user);
                 return result;
